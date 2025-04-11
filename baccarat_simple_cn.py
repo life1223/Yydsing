@@ -4,7 +4,6 @@ import random
 from collections import Counter
 
 st.set_page_config(page_title="牌影", page_icon="logo.png")
-
 st.image("logo.png", use_container_width=True)
 
 def get_card_value(card):
@@ -100,7 +99,6 @@ def simulate_many_rounds(used_cards, simulations=10000):
 st.markdown("<style>div.block-container{padding-top:2rem;}</style>", unsafe_allow_html=True)
 
 with st.container():
-
     st.markdown("### 請輸入目前已開出的牌（例如：A 5 9 K）")
     user_input = st.text_input("目前已開出的牌（用空格分隔）", placeholder="輸入如：A 5 9 K")
 
@@ -111,14 +109,14 @@ with st.container():
         used_cards = user_input.strip().upper().split()
         result_counter, total = simulate_many_rounds(used_cards, simulations)
 
-st.markdown("## 勝率預測結果")
-col1, col2, col3 = st.columns([1, 1, 1])  # 三欄等寬
+        st.markdown("## 勝率預測結果")
+        col1, col2, col3 = st.columns([1, 1, 1])  # 三欄等寬
 
-with col1:
-st.metric("莊贏機率", f"{result_counter['莊贏'] / total:.2%}")
+        with col1:
+            st.metric("莊贏機率", f"{result_counter['莊贏'] / total:.2%}")
 
-with col2:
-st.metric("閒贏機率", f"{result_counter['閒贏'] / total:.2%}")
+        with col2:
+            st.metric("閒贏機率", f"{result_counter['閒贏'] / total:.2%}")
 
-with col3:
-st.metric("和局機率", f"{result_counter['和局'] / total:.2%}")
+        with col3:
+            st.metric("和局機率", f"{result_counter['和局'] / total:.2%}")
