@@ -1,7 +1,9 @@
-st.set_page_config(page_title="牌影", page_icon="♠️")
+
 import streamlit as st
 import random
 from collections import Counter
+
+st.set_page_config(page_title="牌影", page_icon="♠️")
 
 def get_card_value(card):
     if card in ['J', 'Q', 'K', '10']:
