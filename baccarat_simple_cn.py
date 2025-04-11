@@ -112,8 +112,14 @@ with st.container():
         result_counter, total = simulate_many_rounds(used_cards, simulations)
 
         st.markdown("## 勝率預測結果")
-        col1, col2, col3 = st.columns(3)
-        col1.metric("莊贏機率", f"{result_counter['莊贏'] / total:.2%}")
-        col2.metric("閒贏機率", f"{result_counter['閒贏'] / total:.2%}")
-        col3.metric("和局機率", f"{result_counter['和局'] / total:.2%}")
+col1, col2, col3 = st.columns([1, 1, 1])  # 三欄等寬
+
+with col1:
+    st.metric("莊贏機率", f"{result_counter['莊贏'] / total:.2%}")
+
+with col2:
+    st.metric("閒贏機率", f"{result_counter['閒贏'] / total:.2%}")
+
+with col3:
+    st.metric("和局機率", f"{result_counter['和局'] / total:.2%}")
 
