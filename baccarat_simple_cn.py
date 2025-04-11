@@ -1,26 +1,23 @@
-
 import streamlit as st
 import random
 from collections import Counter
 
+# 頁面設定 + icon
 st.set_page_config(page_title="牌影", page_icon="logo.png")
 
+# 顯示 logo
 st.image("logo.png", width=200)
 
+# 美化背景與按鈕樣式（黑色系）
 st.markdown("""
 <style>
-/* 背景設定 */
 body {
     background-color: #0f0f0f;
     color: #ffffff;
 }
-
-/* 整體容器設定 */
 [data-testid="stAppViewContainer"] {
     background: linear-gradient(180deg, #0f0f0f 0%, #1c1c1c 100%);
 }
-
-/* 按鈕樣式 */
 div.stButton > button {
     background-color: #333333;
     color: white;
@@ -29,19 +26,25 @@ div.stButton > button {
     padding: 8px 24px;
     border: 1px solid #555;
 }
-
-/* 標題、說明文字顏色 */
 h1, h2, h3, h4, h5, h6, p, label {
     color: #e0e0e0;
 }
-
-/* slider 顏色 */
 div.stSlider > div > div {
     background: #555 !important;
 }
 </style>
 """, unsafe_allow_html=True)
 
+# 選牌區塊（改用 multiselect）
+card_options = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
+selected_cards = st.multiselect("請點選已開出的牌（可重複選擇）：", options=card_options * 32, max_selections=416)
+
+if selected_cards:
+    st.write("你已選擇：", " ".join(selected_cards))
+
+simulations = st.slider("模擬次數", 1000, 20000, 10000, step=1000)
+
+# 撲克邏輯
 def get_card_value(card):
     if card in ['J', 'Q', 'K', '10']:
         return 0
@@ -131,18 +134,12 @@ def simulate_many_rounds(used_cards, simulations=10000):
     total = sum(result_counter.values())
     return result_counter, total
 
-st.markdown("請輸入目前已開出的牌（例如：A 5 9 K）")
-
-user_input = st.text_input("目前已開出的牌（用空格分隔）", placeholder="輸入如：A 5 9 K")
-simulations = st.slider("模擬次數", 1000, 20000, 10000, step=1000)
-
+# 執行模擬
 if st.button("開始模擬"):
-    used_cards = user_input.strip().upper().split()
-    result_counter, total = simulate_many_rounds(used_cards, simulations)
+    result_counter, total = simulate_many_rounds(selected_cards, simulations)
 
     st.subheader("勝率預測結果")
     col1, col2, col3 = st.columns(3)
-    
     col1.metric("閒贏機率", f"{result_counter['閒贏'] / total:.2%}")
     col2.metric("莊贏機率", f"{result_counter['莊贏'] / total:.2%}")
     col3.metric("和局機率", f"{result_counter['和局'] / total:.2%}")
