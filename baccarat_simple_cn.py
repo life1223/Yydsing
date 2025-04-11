@@ -7,7 +7,7 @@ from collections import Counter
 st.set_page_config(page_title="牌影", page_icon="logo.png")
 
 # 顯示 logo
-st.image("logo.png", width=200)
+st.image("logo.png", width=400)
 
 # 美化背景與按鈕樣式（黑色系）
 st.markdown("""
