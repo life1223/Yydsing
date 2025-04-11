@@ -100,7 +100,7 @@ def simulate_many_rounds(used_cards, simulations=10000):
 st.markdown("<style>div.block-container{padding-top:2rem;}</style>", unsafe_allow_html=True)
 
 with st.container():
-    st.image("logo.png", use_column_width=True)
+    st.image("logo.png", use_container_width=True)
 
     st.markdown("### 請輸入目前已開出的牌（例如：A 5 9 K）")
     user_input = st.text_input("目前已開出的牌（用空格分隔）", placeholder="輸入如：A 5 9 K")
