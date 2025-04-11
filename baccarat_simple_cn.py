@@ -1,71 +1,10 @@
+
 import streamlit as st
 import random
 from collections import Counter
 
-# 設定頁面標題與 icon
 st.set_page_config(page_title="牌影", page_icon="logo.png")
 
-# 自訂 CSS 美化介面
-st.markdown("""
-    <style>
-        body {
-            background: linear-gradient(180deg, #000000, #1a1a1a);
-            color: white;
-        }
-        .block-container {
-            padding-top: 2rem;
-        }
-        .logo {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 2rem;
-        }
-        .title-img {
-            width: 200px;
-        }
-        .card {
-            background: #222;
-            padding: 1.5rem;
-            border-radius: 1rem;
-            text-align: center;
-            color: white;
-            font-family: sans-serif;
-        }
-        .card-title {
-            font-size: 1rem;
-            color: #aaa;
-        }
-        .card-value {
-            font-size: 2rem;
-            font-weight: bold;
-            color: white;
-        }
-        .stTextInput > div > input {
-            background-color: #111;
-            color: white;
-            border-radius: 0.5rem;
-        }
-        .stSlider > div {
-            color: white;
-        }
-        .stButton>button {
-            background-color: #333333;
-            color: white;
-            border-radius: 0.5rem;
-            padding: 0.75rem 2rem;
-        }
-    </style>
-""", unsafe_allow_html=True)
-
-# 顯示 logo
-st.markdown('<div class="logo"><img src="logo.png" class="title-img"/></div>', unsafe_allow_html=True)
-
-# 使用者輸入
-st.markdown("請輸入目前已開出的牌（例如：A 5 9 K）")
-user_input = st.text_input("目前已開出的牌（用空格分隔）", placeholder="輸入如：A 5 9 K")
-simulations = st.slider("模擬次數", 1000, 20000, 10000, step=1000)
-
-# 執行模擬
 def get_card_value(card):
     if card in ['J', 'Q', 'K', '10']:
         return 0
@@ -155,18 +94,25 @@ def simulate_many_rounds(used_cards, simulations=10000):
     total = sum(result_counter.values())
     return result_counter, total
 
-if st.button("開始模擬"):
-    used_cards = user_input.strip().upper().split()
-    result_counter, total = simulate_many_rounds(used_cards, simulations)
+# UI 介面
+st.markdown("<style>div.block-container{padding-top:2rem;}</style>", unsafe_allow_html=True)
 
-    st.markdown("### 勝率預測結果")
-    col1, col2, col3 = st.columns(3)
+with st.container():
+    st.image("logo.png", use_column_width=True)
 
-    with col1:
-        st.markdown('<div class="card"><div class="card-title">莊贏機率</div><div class="card-value">{:.2%}</div></div>'.format(result_counter['莊贏'] / total), unsafe_allow_html=True)
+    st.markdown("### 請輸入目前已開出的牌（例如：A 5 9 K）")
+    user_input = st.text_input("目前已開出的牌（用空格分隔）", placeholder="輸入如：A 5 9 K")
 
-    with col2:
-        st.markdown('<div class="card"><div class="card-title">閒贏機率</div><div class="card-value">{:.2%}</div></div>'.format(result_counter['閒贏'] / total), unsafe_allow_html=True)
+    st.markdown("### 模擬次數")
+    simulations = st.slider("", 1000, 20000, 10000, step=1000)
 
-    with col3:
-        st.markdown('<div class="card"><div class="card-title">和局機率</div><div class="card-value">{:.2%}</div></div>'.format(result_counter['和局'] / total), unsafe_allow_html=True)
+    if st.button("開始模擬"):
+        used_cards = user_input.strip().upper().split()
+        result_counter, total = simulate_many_rounds(used_cards, simulations)
+
+        st.markdown("## 勝率預測結果")
+        col1, col2, col3 = st.columns(3)
+        col1.metric("莊贏機率", f"{result_counter['莊贏'] / total:.2%}")
+        col2.metric("閒贏機率", f"{result_counter['閒贏'] / total:.2%}")
+        col3.metric("和局機率", f"{result_counter['和局'] / total:.2%}")
+
