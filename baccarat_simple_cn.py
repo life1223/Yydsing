@@ -5,6 +5,8 @@ from collections import Counter
 
 st.set_page_config(page_title="牌影", page_icon="logo.png")
 
+st.image("logo.png", width=200)
+
 def get_card_value(card):
     if card in ['J', 'Q', 'K', '10']:
         return 0
@@ -94,7 +96,6 @@ def simulate_many_rounds(used_cards, simulations=10000):
     total = sum(result_counter.values())
     return result_counter, total
 
-st.title("牌影")
 st.markdown("請輸入目前已開出的牌（例如：A 5 9 K）")
 
 user_input = st.text_input("目前已開出的牌（用空格分隔）", placeholder="輸入如：A 5 9 K")
