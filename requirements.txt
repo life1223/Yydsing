@@ -1,2 +1,2 @@
 streamlit==1.25.0
-更新 requirements.txt 加入 streamlit 版本
+
