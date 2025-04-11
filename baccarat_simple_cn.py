@@ -7,6 +7,41 @@ st.set_page_config(page_title="牌影", page_icon="logo.png")
 
 st.image("logo.png", width=200)
 
+st.markdown("""
+<style>
+/* 背景設定 */
+body {
+    background-color: #0f0f0f;
+    color: #ffffff;
+}
+
+/* 整體容器設定 */
+[data-testid="stAppViewContainer"] {
+    background: linear-gradient(180deg, #0f0f0f 0%, #1c1c1c 100%);
+}
+
+/* 按鈕樣式 */
+div.stButton > button {
+    background-color: #333333;
+    color: white;
+    border-radius: 8px;
+    font-size: 16px;
+    padding: 8px 24px;
+    border: 1px solid #555;
+}
+
+/* 標題、說明文字顏色 */
+h1, h2, h3, h4, h5, h6, p, label {
+    color: #e0e0e0;
+}
+
+/* slider 顏色 */
+div.stSlider > div > div {
+    background: #555 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 def get_card_value(card):
     if card in ['J', 'Q', 'K', '10']:
         return 0
