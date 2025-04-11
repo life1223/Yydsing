@@ -106,6 +106,7 @@ if st.button("開始模擬"):
 
     st.subheader("勝率預測結果")
     col1, col2, col3 = st.columns(3)
+    
     col1.metric("閒贏機率", f"{result_counter['閒贏'] / total:.2%}")
     col2.metric("莊贏機率", f"{result_counter['莊贏'] / total:.2%}")
     col3.metric("和局機率", f"{result_counter['和局'] / total:.2%}")
