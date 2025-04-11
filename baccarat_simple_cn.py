@@ -5,7 +5,7 @@ from collections import Counter
 
 st.set_page_config(page_title="牌影", page_icon="logo.png")
 
-st.image("st.image("logo.png", use_container_width=True)
+st.image("logo.png", use_container_width=True)
 
 def get_card_value(card):
     if card in ['J', 'Q', 'K', '10']:
