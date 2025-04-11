@@ -100,7 +100,8 @@ st.markdown("<style>div.block-container{padding-top:2rem;}</style>", unsafe_allo
 
 with st.container():
     st.markdown("### 請輸入目前已開出的牌（例如：A 5 9 K）")
-    user_input = st.text_input("目前已開出的牌（用空格分隔）", placeholder="輸入如：A 5 9 K")
+    card_options = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
+    user_input = st.multiselect("請選擇已開出的牌", options=card_options, default=[])
 
     st.markdown("### 模擬次數")
     simulations = st.slider("", 1000, 20000, 10000, step=1000)
