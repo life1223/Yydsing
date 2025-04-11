@@ -1,4 +1,4 @@
-
+st.set_page_config(page_title="牌影", page_icon="♠️")
 import streamlit as st
 import random
 from collections import Counter
@@ -93,7 +93,7 @@ def simulate_many_rounds(used_cards, simulations=10000):
     return result_counter, total
 
 st.set_page_config(page_title="百家樂出牌機率", layout="centered")
-st.title("百家樂出牌機率")
+st.title("牌影")
 st.markdown("請輸入目前已開出的牌（例如：A 5 9 K）")
 
 user_input = st.text_input("目前已開出的牌（用空格分隔）", placeholder="輸入如：A 5 9 K")
