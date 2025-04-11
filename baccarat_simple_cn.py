@@ -3,7 +3,7 @@ import streamlit as st
 import random
 from collections import Counter
 
-st.set_page_config(page_title="牌影", page_icon="EC1B5594-2BDF-4382-9BC6-1EA592EF7B24.png")
+st.set_page_config(page_title="牌影", page_icon="logo.png")
 
 def get_card_value(card):
     if card in ['J', 'Q', 'K', '10']:
